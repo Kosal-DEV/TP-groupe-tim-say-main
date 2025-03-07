@@ -1,0 +1,76 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.profil{
+    border: 1px solid red;
+    width: 30%;
+    margin: 2rem;
+}
+.img__profil{
+    height: auto;
+    width: 15%;
+    margin-top: 1rem;
+}
+.profil__img{
+    display: flex;
+    justify-content: center;
+}
+.separator{
+    border: 1px solid #007bff ;
+    width: 80%;
+    margin: 0 auto;
+}
+.profil__name{
+    text-align: center;
+    margin: 1rem;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.profil__pseudo{
+    text-align: center;
+    margin: 1rem;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.profil__ville{
+    text-align: center;
+    margin: 1rem;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.profil__nation{
+    text-align: center;
+    margin: 1rem;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.profil__button{
+    display: flex;
+    justify-content: center;
+}
+.btn__profil{
+    background-color: #007bff;
+    color: white;
+    padding: 0.5rem;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    margin: 1rem;
+}
+.btn__profil:hover{
+    background-color: #001bff;
+    cursor: pointer;
+}
+.btn__logout{
+    background-color: red;
+    color: white;
+    padding: 0.5rem;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    margin: 1rem;
+}
+.btn__logout:hover{
+    background-color: rgb(158, 0, 0);
+    cursor: pointer;
+}

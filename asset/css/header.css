@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: #f8f9fa;
+}
+header{
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+h1{
+    font-family: 'Audiowide';
+    text-transform: uppercase;
+    margin: 10px;
+    text-align: center;
+}
+nav{
+    background-color: white;
+}
+.btn1{
+    display: flex;
+    color: #333;
+    font-size: 32px;
+    font-family: 'Bebas Neue';
+    padding: 5px 10px;
+    text-decoration: none;
+    margin: 10px;
+    height: 100%;
+}
+.btn2{
+    display: flex;
+    color: #007bff;
+    font-size: 32px;
+    font-family: 'Bebas Neue';
+    padding: 5px 10px;
+    text-decoration: none;
+    margin: 10px;
+    height: 100%;
+}
+.navbar{
+    display: flex;
+    list-style-type: none;
+    text-align: center;
+}
+.btn1:hover{
+    color: #007bff;
+}
