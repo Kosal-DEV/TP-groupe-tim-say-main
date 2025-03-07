@@ -1,4 +1,5 @@
 <?php
+session_start();
 $title = "Login";
 $nav = "login";
 $erreur = null;
@@ -11,12 +12,12 @@ try {
             $stmtAddUser = 'INSERT INTO users(user_name,user_firstname,user_nickname,user_password,user_date_of_birth,id_city) 
         VALUES (:name, :firstname, :nickname, :password, :dob, :city)';
             $addUser = $pdo->prepare($stmtAddUser);
-    
+
             $stmtIdCity = 'SELECT id_city FROM cities WHERE city_name = :city';
             $idcity = $pdo->prepare($stmtIdCity);
             $idcity->execute(['city' => $_POST['ville']]);
             $city = $idcity->fetchAll();
-    
+
             $addUser->execute([
                 'name' => $_POST['name'],
                 'firstname' => $_POST['firstname'],
@@ -28,8 +29,8 @@ try {
             echo "Inscription réussi !";
         }
     }
-  } catch (PDOException $error){
-    echo $error->getMessage();
+} catch (PDOException $error) {
+    echo "Pseudo déjà pris !";
 }
 
 //-----------------------------------------------------------------------------------------------------------------------------------
@@ -50,6 +51,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['connected'] = true;
                 $_SESSION['id_user'] = $user['id_user'];
                 $_SESSION['pseudo2'] = $user['user_nickname'];
+                $_SESSION['firstname2'] = $user['user_firstname'];
+                $_SESSION['name2'] = $user['user_name'];
+                $_SESSION['city'] = $user['id_city'];
                 if (isset($_SESSION['connected']) && $_SESSION['connected']) {
                     header("Location: profil.php");
                 }
@@ -129,12 +133,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
                 for ($i = 0; $i < sizeof($listCities); $i++) {
-                ?><option value="<?php echo $listCities[$i]['city_name'] ?>"><?php
-                                                                                echo $listCities[$i]['city_name'];
-                                                                                ?></option><?php
-                                                                                        };
-
-                                                                                            ?>
+                ?><option value="<?php echo $listCities[$i]['city_name'] ?>">
+                        <?php
+                        echo $listCities[$i]['city_name'];
+                        ?></option>
+                <?php
+                };
+                ?>
             </select>
         </div>
 
@@ -155,6 +160,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </form>
     <?php require "footer.php"; ?>
     <script src="./login.js"></script>
+    <?php if (isset($_POST['form_type'])): ?>
+
+        <?php if ($_POST['form_type'] === 'register'): ?>
+            <script>
+                changeForm('inscription')
+            </script>
+        <?php endif ?>
+
+    <?php endif ?>
 </body>
 
 </html>
