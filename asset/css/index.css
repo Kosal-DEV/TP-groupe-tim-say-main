@@ -1,0 +1,38 @@
+body{
+    background-color: #f8f9fa;
+}
+.title{
+    margin: 2rem;
+}
+iframe{
+    display: flex;
+    margin: 0 auto;
+}
+.table__container{
+    border-radius: 1rem;
+    width: 50%;
+    margin: 48px auto;
+    gap: 2rem;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+h2{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 3rem;
+}
+.table_cities{
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    padding-bottom: 2rem;
+    border: none;
+}
+tbody{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 1.5rem;
+    text-align: center;
+}
+td{
+    padding: 0.5rem;
+}

@@ -4,9 +4,12 @@
     box-sizing: border-box;
 }
 .profil{
-    border: 1px solid red;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 0.5rem;
     width: 30%;
     margin: 2rem;
+    margin-top: 6rem;
+    margin-bottom: 6rem;
 }
 .img__profil{
     height: auto;

@@ -70,7 +70,45 @@ require "header.php";
         </div>
         <div class="separator"></div>
         <div class="profil__nation">
-            <h3>Nationalité : Belges</h3>
+            <h3>
+            <?php switch ($_SESSION['city']) {
+                    case "1":
+                        echo "Nationalité : Belge";
+                        break;
+                    case "2":
+                        echo "Nationalité : Néerlandais";
+                        break;
+                    case "3":
+                        echo "Nationalité : Japonais";
+                        break;
+                    case "4":
+                        echo "Nationalité : Belge";
+                        break;
+                    case "5":
+                        echo "Nationalité : Néo Zélandais";
+                        break;
+                    case "6":
+                        echo "Nationalité : Lao";
+                        break;
+                    case "7":
+                        echo "Nationalité : Espagnole";
+                        break;
+                    case "8":
+                        echo "Nationalité : Italien";
+                        break;
+                    case "9":
+                        echo "Nationalité : Suisse";
+                        break;
+                    case "10":
+                        echo "Nationalité : Allemand";
+                        break;
+                    case "11":
+                        echo "Nationalité : Portugais";
+                        break;
+                    default:
+                        echo "Nationalité : /";
+                } ?>
+            </h3>
         </div>
         <form action="" method="post" class="profil__button">
             <button class="btn__profil">Modifier photo profil</button>
@@ -84,4 +122,5 @@ require "header.php";
 if (isset($_POST['deconnexion'])) {
     header('Location: logout.php');
 }
+require "footer.php";
 ?>

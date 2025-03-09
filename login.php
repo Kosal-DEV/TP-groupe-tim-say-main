@@ -4,12 +4,13 @@ $title = "Login";
 $nav = "login";
 $erreur = null;
 require "header.php";
-
-//Enregistrer un utilisateur dans la base de données
+// ---------------------------------------------------------------------------------------------------------------------------------------
+// ENREGISTREMENT  EN PHP
+//----------------------------------------------------------------------------------------------------------------------------------------
 try {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST['form_type']) && $_POST['form_type'] === 'register') {
-            $stmtAddUser = 'INSERT INTO users(user_name,user_firstname,user_nickname,user_password,user_date_of_birth,id_city) 
+            $stmtAddUser = 'INSERT INTO users(user_name, user_firstname, user_nickname, user_password, TIMESTAMPDIFF(YEAR, user_date_of_birth, CURDATE()), id_city) 
         VALUES (:name, :firstname, :nickname, :password, :dob, :city)';
             $addUser = $pdo->prepare($stmtAddUser);
 
@@ -34,35 +35,37 @@ try {
 }
 
 //-----------------------------------------------------------------------------------------------------------------------------------
-//         CONNEXION
+// CONNEXION EN PHP
 //-----------------------------------------------------------------------------------------------------------------------------------
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['form_type']) && $_POST['form_type'] === 'login') {
-        $pseudo2 = $_POST['pseudo2'];
-        $password2 = $_POST['password2'];
-
-        $query = $pdo->prepare("SELECT * FROM users WHERE user_nickname = :pseudo2");
-        $query->execute(['pseudo2' => $pseudo2]);
-        $user = $query->fetch(PDO::FETCH_ASSOC);
-
-        if ($user) {
-            if (password_verify($password2, $user['user_password'])) {
-                $_SESSION['connected'] = true;
-                $_SESSION['id_user'] = $user['id_user'];
-                $_SESSION['pseudo2'] = $user['user_nickname'];
-                $_SESSION['firstname2'] = $user['user_firstname'];
-                $_SESSION['name2'] = $user['user_name'];
-                $_SESSION['city'] = $user['id_city'];
-                if (isset($_SESSION['connected']) && $_SESSION['connected']) {
-                    header("Location: profil.php");
+try {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (isset($_POST['form_type']) && $_POST['form_type'] === 'login') {
+            $pseudo2 = $_POST['pseudo2'];
+            $password2 = $_POST['password2'];
+    
+            $query = $pdo->prepare("SELECT * FROM users WHERE user_nickname = :pseudo2");
+            $query->execute(['pseudo2' => $pseudo2]);
+            $user = $query->fetch(PDO::FETCH_ASSOC);
+    
+            if ($user) {
+                if (password_verify($password2, $user['user_password'])) {
+                    $_SESSION['connected'] = true;
+                    $_SESSION['id_user'] = $user['id_user'];
+                    $_SESSION['pseudo2'] = $user['user_nickname'];
+                    $_SESSION['firstname2'] = $user['user_firstname'];
+                    $_SESSION['name2'] = $user['user_name'];
+                    $_SESSION['city'] = $user['id_city'];
+                    if (isset($_SESSION['connected']) && $_SESSION['connected']) {
+                        header("Location: profil.php");
+                    }
+                    exit();
                 }
-                exit();
-            } else {
-                echo "Identifiant incorrect !";
             }
         }
     }
+} catch (PDOException $error){
+    echo "Identifiant incorrect !";
 }
 ?>
 <!DOCTYPE html>
@@ -72,18 +75,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./asset/css/login.css">
-    <title>Login</title>
+
 </head>
 
 <body>
+    <!-- --------------------------------------------------------------------------------------------------------------------------- -->
+    <!-- CONNEXION FORMULAIRE-->
+    <!-- --------------------------------------------------------------------------------------------------------------------------- -->
     <form id="connection" class="form" method="post">
         <input type="hidden" name="form_type" value="login">
         <div class="form__title">
             <h2>Se connecter</h2>
         </div>
-
-
-
         <div class="form__input">
             <input class="input" type="text" name="pseudo2" placeholder="Pseudo" required><br>
             <input class="input" type="password" name="password2" placeholder="Mot de passe" required>
@@ -106,25 +109,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </form>
     <!-- ------------------------------------------------------------------------------------------------------------------------ -->
-    <!-- INSCRIPTION -->
+    <!-- INSCRIPTION FORMULAIRE -->
     <!-- ------------------------------------------------------------------------------------------------------------------------ -->
     <form id="inscription" class="form hidden" method="post">
         <input type="hidden" name="form_type" value="register">
         <div class="form__title">
             <h2>Inscription</h2>
         </div>
-
-
-
         <div class="form__input">
             <input class="input" type="text" name="pseudo" placeholder="Pseudo" required>
             <input class="input" type="text" name="name" placeholder="Nom" required>
             <input class="input" type="text" name="firstname" placeholder="Prénom" required>
-            <label for="">Date de naissance : </label>
-            <input type="date" name="dob" id="dob">
+            <input class="input" type="date" name="dob" id="dob">
             <input class="input" type="password" name="password" placeholder="Mot de passe" required>
-            <label for="ville">Votre ville : </label>
-            <select name="ville" id="ville">
+            <select class="input" name="ville" id="ville">
                 <?php
                 $stmtCities = 'SELECT city_name FROM cities';
                 $cities = $pdo->prepare($stmtCities);
@@ -142,7 +140,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 ?>
             </select>
         </div>
-
         <div class="form__info">
             <div>
                 <input type="checkbox" name="remember">
@@ -158,8 +155,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <p class="inscription">Déjà inscrit ? <a onclick="changeForm('connection')" href="#">Connecte-toi maintenant !</a></p>
         </div>
     </form>
-    <?php require "footer.php"; ?>
     <script src="./login.js"></script>
+
     <?php if (isset($_POST['form_type'])): ?>
 
         <?php if ($_POST['form_type'] === 'register'): ?>
@@ -172,3 +169,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </body>
 
 </html>
+<?php require "footer.php"; ?>
