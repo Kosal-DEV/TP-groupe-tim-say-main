@@ -31,7 +31,7 @@ try {
         }
     }
 } catch (PDOException $error) {
-    echo "Pseudo déjà pris !";
+    $erreur = "Pseudo déjà pris !";
 }
 
 //-----------------------------------------------------------------------------------------------------------------------------------
@@ -65,7 +65,7 @@ try {
         }
     }
 } catch (PDOException $error) {
-    echo "Identifiant incorrect !";
+    $error_connect = "Identifiant incorrect !";
 }
 ?>
 <!DOCTYPE html>
@@ -85,6 +85,9 @@ try {
     <form id="connection" class="form" method="post">
         <input type="hidden" name="form_type" value="login">
         <div class="form__title">
+        <div class="form__error">
+            <?php echo $error_connect ?>
+        </div>
             <h2>Se connecter</h2>
         </div>
         <div class="form__input">
@@ -113,6 +116,9 @@ try {
     <!-- ------------------------------------------------------------------------------------------------------------------------ -->
     <form id="inscription" class="form hidden" method="post">
         <input type="hidden" name="form_type" value="register">
+        <div class="form__error">
+            <?php echo $erreur ?>
+        </div>
         <div class="form__title">
             <h2>Inscription</h2>
         </div>
