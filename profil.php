@@ -4,6 +4,10 @@ $title = "Profil";
 $nav = "profil";
 $erreur = null;
 require "header.php";
+
+if(!is_connected()){
+    header('Location: login.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

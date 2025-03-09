@@ -10,7 +10,7 @@ require "header.php";
 try {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST['form_type']) && $_POST['form_type'] === 'register') {
-            $stmtAddUser = 'INSERT INTO users(user_name, user_firstname, user_nickname, user_password, TIMESTAMPDIFF(YEAR, user_date_of_birth, CURDATE()), id_city) 
+            $stmtAddUser = 'INSERT INTO users(user_name, user_firstname, user_nickname, user_password, user_date_of_birth, id_city) 
         VALUES (:name, :firstname, :nickname, :password, :dob, :city)';
             $addUser = $pdo->prepare($stmtAddUser);
 
@@ -43,11 +43,11 @@ try {
         if (isset($_POST['form_type']) && $_POST['form_type'] === 'login') {
             $pseudo2 = $_POST['pseudo2'];
             $password2 = $_POST['password2'];
-    
+
             $query = $pdo->prepare("SELECT * FROM users WHERE user_nickname = :pseudo2");
             $query->execute(['pseudo2' => $pseudo2]);
             $user = $query->fetch(PDO::FETCH_ASSOC);
-    
+
             if ($user) {
                 if (password_verify($password2, $user['user_password'])) {
                     $_SESSION['connected'] = true;
@@ -64,7 +64,7 @@ try {
             }
         }
     }
-} catch (PDOException $error){
+} catch (PDOException $error) {
     echo "Identifiant incorrect !";
 }
 ?>
