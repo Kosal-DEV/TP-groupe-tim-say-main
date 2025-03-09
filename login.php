@@ -37,8 +37,6 @@ try {
 //-----------------------------------------------------------------------------------------------------------------------------------
 // CONNEXION EN PHP
 //-----------------------------------------------------------------------------------------------------------------------------------
-
-try {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST['form_type']) && $_POST['form_type'] === 'login') {
             $pseudo2 = $_POST['pseudo2'];
@@ -63,10 +61,9 @@ try {
                 }
             }
         }
+    } else {
+        $error_connect = "Identifiant incorrect !";
     }
-} catch (PDOException $error) {
-    $error_connect = "Identifiant incorrect !";
-}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -87,7 +84,7 @@ try {
         <div class="form__title">
         <?php if (isset($error_connect)): ?>
         <div class="form__error">
-            <?php echo $error_connect ?>
+            <?php echo $error_connect; ?>
         </div>
         <?php endif ?>
             <h2>Se connecter</h2>
@@ -118,9 +115,11 @@ try {
     <!-- ------------------------------------------------------------------------------------------------------------------------ -->
     <form id="inscription" class="form hidden" method="post">
         <input type="hidden" name="form_type" value="register">
+        <?php if (isset($erreur)): ?>
         <div class="form__error">
-            <?php echo $erreur ?>
+            <?php echo $erreur; ?>
         </div>
+        <?php endif ?>
         <div class="form__title">
             <h2>Inscription</h2>
         </div>
@@ -128,9 +127,9 @@ try {
             <input class="input" type="text" name="pseudo" placeholder="Pseudo" required>
             <input class="input" type="text" name="name" placeholder="Nom" required>
             <input class="input" type="text" name="firstname" placeholder="Prénom" required>
-            <input class="input" type="date" name="dob" id="dob">
+            <input class="input" type="date" name="dob" id="dob" required>
             <input class="input" type="password" name="password" placeholder="Mot de passe" required>
-            <select class="input" name="ville" id="ville">
+            <select class="input" name="ville" id="ville" required>
                 <?php
                 $stmtCities = 'SELECT city_name FROM cities';
                 $cities = $pdo->prepare($stmtCities);
